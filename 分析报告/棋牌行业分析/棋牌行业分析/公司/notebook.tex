@@ -1,0 +1,694 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{??????}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    大众玩法的棋牌游戏平台：腾讯、JJ、口袋科技、波克城市、博雅、联众
+、边锋\\
+地方特色玩法的棋牌游戏平台：闲徕麻将、皮皮麻将、同城游、边锋
+
+    \hypertarget{ux817eux8bafux68cbux724c}{%
+\subsubsection{腾讯棋牌}\label{ux817eux8bafux68cbux724c}}
+
+\hypertarget{ux5386ux53f2}{%
+\paragraph{历史}\label{ux5386ux53f2}}
+
+\begin{itemize}
+\tightlist
+\item
+  2003年在PC端推出QQ游戏大厅
+\item
+  2015年由腾讯互动娱乐推出的全新棋牌整合品牌
+\item
+  腾讯已打造超过130多款不同种类的棋牌游戏，每日有超过5000万的网络用户活跃在这些产品之上，有超过60\%的用户是30岁以下的年轻人
+\item
+  从2003年腾讯游戏涉足棋牌品类开始，14年间仅移动端就推出了《欢乐斗地主》《欢乐麻将全集》《天天德州》等13款棋牌游戏产品。
+\item
+  17年，腾讯棋牌还将上线《腾讯国际象棋》《英雄战歌》《进击的棋牌》等新品
+\end{itemize}
+
+\hypertarget{ux4ea7ux54c1}{%
+\paragraph{产品}\label{ux4ea7ux54c1}}
+
+\begin{itemize}
+\tightlist
+\item
+  由腾讯棋牌类游戏联动PC－移动－电视三端体系，共同打造的全终端覆盖的棋牌类游戏整体品牌------``腾讯棋牌''。
+\item
+  腾讯棋牌包括《欢乐斗地主》、《欢乐麻将》、《天天德州》、《天天象棋》等精品棋牌游戏单品和《QQ游戏》平台下的棋牌游戏
+\end{itemize}
+
+\hypertarget{ux4f18ux52bf}{%
+\paragraph{优势}\label{ux4f18ux52bf}}
+
+\hypertarget{ux4e0dux8db3}{%
+\paragraph{不足}\label{ux4e0dux8db3}}
+
+\hypertarget{ux53d1ux5c55ux89c4ux5212}{%
+\paragraph{发展规划}\label{ux53d1ux5c55ux89c4ux5212}}
+
+\begin{itemize}
+\tightlist
+\item
+  腾讯棋牌将在2015年推出全新的多元化棋牌体验，包括更专业的赛事、明星棋牌互动
+\item
+  未来``腾讯棋牌''将会开发更多种类的精品棋牌游戏产品，不仅满足越来越多的用户需求。同时也会加速``腾讯棋牌''全终端覆盖，打破时间、地点以及跨端帐号数据的局限，为玩家奉上无时无刻的360度全景畅快游戏体验。
+\item
+  宣布投入2000万赛事奖金，并推出完整的赛事体系，助力棋牌竞技的全民性发展
+\item
+  国家体育总局棋牌中心相关官员出席发布会，并表示将全力支持腾讯棋牌，帮助腾讯棋牌提升专业属性，完成专业、绿色的智力体育竞技模式。
+\item
+  2015年，``腾讯棋牌''将推动各个领域的大明星腕儿入驻腾讯棋牌名人堂，把棋牌化作桥梁拉近大众与名人之间的距离。
+\item
+  ``腾讯棋牌''还将首创棋牌娱乐``造星真人秀''，全程捕捉民间高手过招的精彩细节，用户有机会通过精湛的棋牌技艺也成为名人明星。
+\item
+  ``腾讯棋牌''将组建棋牌文化大使团，一同传递棋牌文化
+\item
+  腾讯棋牌将从专业国际和全民娱乐两个层面继续完善竞技体系。
+\item
+  专业国际方面，TPT将采用国际顶级扑克赛事的赛制及直播团队原班人马，为参赛选手与每一位观看直播赛事的玩家提供专业级别的赛事内容。
+\end{itemize}
+
+\hypertarget{ux5929ux5929ux5fb7ux5dde}{%
+\paragraph{天天德州}\label{ux5929ux5929ux5fb7ux5dde}}
+
+\begin{itemize}
+\tightlist
+\item
+  线上推广：首批用户群体主要来自于QQ与微信的推广
+
+  \begin{itemize}
+  \tightlist
+  \item
+    其次为应用宝平台推广，通常固定有首页轮播banner
+  \item
+    国内其他第三方安卓市场一般采取收录模式
+  \end{itemize}
+\item
+  其他推广：异业合作、线下比赛、电视推广
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  线上用户水平整体偏低，推推乐
+\item
+  基础玩法+比赛，相对侧重于比赛
+\item
+  游戏论坛：集中核心用户，快速进行咨询答疑，培育用户
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  后续走向：\\
+  一、用户来源：\\
+  线上手Q\&微信推广导量趋于饱和，难以带来更大量级上的突破\\
+  新用户的增长倾向于挖掘其他市场：如异业合作、电视推广、线下赛\\
+  二、运营重点：\\
+  线上赛+线下赛，聚拢高端用户，为初级用户提供话题及学习场景\\
+  真人秀：话题热点铺向海量电视群众，利用节目爆点和游戏特性，进行新用户培养，扩大德州市场，奠定天天德州群众基础\\
+  异业合作：挖掘其他行业中高端潜在用户，如红酒、车、高尔夫等行业，实现双方共赢
+\end{itemize}
+
+    \hypertarget{ux8054ux4f17ux68cbux724c}{%
+\subsubsection{联众棋牌}\label{ux8054ux4f17ux68cbux724c}}
+
+\hypertarget{ux5386ux53f2}{%
+\paragraph{历史}\label{ux5386ux53f2}}
+
+\begin{itemize}
+\tightlist
+\item
+  1998，联众在北京由鲍岳桥、简晶、王建华三人研发成立。
+\item
+  2003年的时候，联众成为世界上最大的休闲游戏平台。联众迅速占据了游戏市场约85\%的份额，极盛时注册用户超过2亿，每月表现活跃的用户高达1500万
+\item
+  2014年联众的招股书显示，联众来自移动游戏的收入呈现出爆发式的增长，由2011年的383万元增长至2013年的1563万元。
+\item
+  2014年，联众在上市之前，据招股书显示，
+  2014年Q1营收为9300万元，同比增长101.3\%净利润为2160万元。
+  其中，德州扑克、麻将、斗地主三款游戏仍贡献了大部分收入，所占收入比例分别为30\%、24.1\%和10\%。
+\item
+  2015年至2017年单年营收同比下降13.97\%、8.36\%和1.21\%。付费玩家数骤减62.2\%。
+\item
+  2017年收入为人民币
+  6.17亿元，同比减少29.2\%。来自PC游戏收入为人民币2.68亿元，同比减少30.6\%。移动游戏收入为2.6亿元，同比减少30.8\%。
+\item
+  2018年4月，北京联众公司棋牌事业部利用网游平台开设赌场，抓获联众公司副总裁秦某、棋牌事业部负责人徐某、大客户部负责人周某及``银商''张某等36名犯罪嫌疑人，冻结涉案资金6500余万元。
+\end{itemize}
+
+\hypertarget{ux4ea7ux54c1}{%
+\paragraph{产品}\label{ux4ea7ux54c1}}
+
+\begin{itemize}
+\tightlist
+\item
+  17年，德州扑克31\%；麻将20\%；斗地主30\%
+\item
+  月活：
+
+  \begin{itemize}
+  \tightlist
+  \item
+    德州：57.8万;16年：82万
+  \item
+    麻将：391万；16年：560万
+  \item
+    斗地主：1384万；16年：1820万
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{ux4f18ux52bf}{%
+\paragraph{优势}\label{ux4f18ux52bf}}
+
+\begin{itemize}
+\tightlist
+\item
+  专业性：一直以来联众的用户最突出的特性。因此即使如腾讯有得天独厚的QQ和微信平台，吸引用户，但是要找最专业的用户还是需要到联众（联众棋牌粘性高）；
+\item
+  成熟：与博雅德州、天天德州用户群体大部分为年轻人不同，联众的用户偏中年以上化，正因为这一组成情况，联众用户的付费率及单用户付费额度要较低（月活跃用户付费率低于2\%）；
+\item
+  联众之所以能够从竞争对手中脱颖而出的一个重要原因是：其独有的结合线下比赛的O2O模式，这在互联网之外构建了一个新的平台（在桥牌、麻将、斗地主、德州均有丰富的线下赛事承办经验）；
+\item
+  与不少未经许可即举办的赛事的主办机构不同，联众的比赛从来都是在国家相关机构批准后才进行，与人民网旗下人民澳客合作让其规避了不少政策风险------2012年国家工商总局授予``联众俱乐部''商标``中国驰名商标''称号
+\end{itemize}
+
+\hypertarget{o2oux7ebfux4e0bux8d5bux4e8bux4f18ux52bf}{%
+\paragraph{O2O线下赛事优势：}\label{o2oux7ebfux4e0bux8d5bux4e8bux4f18ux52bf}}
+
+\begin{itemize}
+\tightlist
+\item
+  开辟新的收入来源：a.由于吸引的群体多为专业、高端，赛事期间可获得酒店、汽车等行业赞助；b.通过收取电视转播费创收入
+\item
+  吸引用户选择联众:a.在联众玩牌有机会参与线下比赛；b.线下参与比赛的玩家转而成为在线用户；
+\item
+  打响品牌知名度/形象。
+  (注：联众对于线下赛事的重视：有25\%(指``公开募股'')将用于举办在线及线下棋牌游戏综合比赛及其他广告与促销活动)
+\end{itemize}
+
+\hypertarget{ux4e0dux8db3}{%
+\paragraph{不足}\label{ux4e0dux8db3}}
+
+\hypertarget{ux53d1ux5c55ux89c4ux5212}{%
+\paragraph{发展规划}\label{ux53d1ux5c55ux89c4ux5212}}
+
+\begin{itemize}
+\tightlist
+\item
+  国外竞技棋牌室
+\item
+  发展WPT探索全球市场
+\end{itemize}
+
+\hypertarget{ux80a1ux6743ux7ed3ux6784}{%
+\paragraph{股权结构}\label{ux80a1ux6743ux7ed3ux6784}}
+
+\hypertarget{ux8d22ux52a1ux5206ux6790}{%
+\paragraph{财务分析}\label{ux8d22ux52a1ux5206ux6790}}
+
+\begin{itemize}
+\tightlist
+\item
+  http://ir.lianzhong.com/upload/2018/03/1522140109121.pdf
+\end{itemize}
+
+    \hypertarget{jjux7adeux6280ux4e16ux754c}{%
+\subsection{JJ竞技世界}\label{jjux7adeux6280ux4e16ux754c}}
+
+\hypertarget{ux5386ux53f2}{%
+\paragraph{历史}\label{ux5386ux53f2}}
+
+竞技世界（北京）网络技术有限公司【以下简称：竞技世界】成立于2007年12月，是国家级高新企业，拥有40余款软件著作权。工信部2017年颁布的互联网百强企业中，竞技世界综合排名40位，游戏类位居前十、棋牌领域排名第二，是中国领先的棋牌游戏研发商及运营商。
+\#\#\#\# 产品 * JJ比赛--休闲竞技游戏平台 *
+大众棋牌游戏：斗地主、麻将、象棋、围棋等 *
+地方棋牌游戏：保皇、四川麻将等； *
+休闲游戏：葫芦娃、蓝月传奇、全民蛇蛇、糖果连连消、消消大作战、最佳阵容等
+
+\hypertarget{ux53d1ux5c55ux89c4ux5212}{%
+\paragraph{发展规划}\label{ux53d1ux5c55ux89c4ux5212}}
+
+\begin{itemize}
+\tightlist
+\item
+  和地方电视台合作举办斗地主大赛
+\end{itemize}
+
+\hypertarget{ux4f18ux52bf}{%
+\paragraph{优势}\label{ux4f18ux52bf}}
+
+\begin{itemize}
+\tightlist
+\item
+  特色明显突出，强竞技，重社交
+\item
+  找准自身运营核心，针对自家用户属性开展必要的线下活动
+\item
+  论坛人气活跃，直接与玩家接触的入口
+\end{itemize}
+
+    \hypertarget{ux6ce2ux514bux57ceux5e02}{%
+\subsection{波克城市}\label{ux6ce2ux514bux57ceux5e02}}
+
+\hypertarget{ux8425ux9500ux7b56ux7565}{%
+\paragraph{营销策略}\label{ux8425ux9500ux7b56ux7565}}
+
+\begin{itemize}
+\tightlist
+\item
+  推广员分红
+\item
+  博客、微博、贴吧
+\item
+  平台直充
+\item
+  明星代言
+\item
+  多元合作发展
+\item
+  高度密合博彩业
+\end{itemize}
+
+\hypertarget{ux53d1ux5c55ux89c4ux5212}{%
+\paragraph{发展规划}\label{ux53d1ux5c55ux89c4ux5212}}
+
+波克城市副总裁徐仁彬：棋牌平台多元化手游探索\\
+推出PC端和手机端后，14年针对智能电视和电视盒子市场推出了电视端棋牌。目前已登陆了创维、海信、长虹、乐视、天猫、小米等多家主流智能电视和安卓电视盒子。\\
+计划做更多不同类型游戏的尝试，比如一些休闲单机、大型网游。13年的时候，波克城市就已经有了网游方面的试水《仙魔九界OL》，14年重磅推出波克首款大型3D回合制宠物手游《口袋幻兽》\\
+除了手机端网游的自主研发，14年波克城市跨界和街机巨头IGS(鈊象电子)合作开发了单机手游《暴力狂飙》和《乐园接龙》，在一些经典游戏基础上加入现代手游流行的创新元素。
+
+    \hypertarget{ux53e3ux888bux79d1ux6280}{%
+\subsection{口袋科技}\label{ux53e3ux888bux79d1ux6280}}
+
+\hypertarget{ux5386ux53f2}{%
+\paragraph{历史}\label{ux5386ux53f2}}
+
+公司创始人---邓劲，成立于2012年，当前总员工20+\\
+主流产品---口袋德州上线第二天，冲到了中国付费排行榜的第三名，引起不少人同行的关注
+
+\hypertarget{ux4ea7ux54c1}{%
+\paragraph{产品}\label{ux4ea7ux54c1}}
+
+\begin{itemize}
+\tightlist
+\item
+  口袋德州，语言版本：简体/繁体/英语
+\item
+  口袋斗地主
+\end{itemize}
+
+\hypertarget{ux7279ux8272}{%
+\paragraph{特色}\label{ux7279ux8272}}
+
+\begin{itemize}
+\item
+  竖版体验，突破传统游戏，双手更灵活，符合用户使用手机习惯
+\item
+  游戏内首弹，免费筹码概率性获取，类比直接领取免费筹码，用户获得成就感更强，更易产生下一步动作
+\item
+  游戏大厅，凸显口袋理念，各功能展现一览无余，充值按钮较为突出，手机晃动按钮动态展现，类比静态按钮更具特色，可借鉴
+\item
+  立志做移动端体验最好德州扑克，在交互上口袋德州别出心裁，游戏房间内可左右滑动，活动中心以及计时宝箱等功能均显示在房间内两侧，房间内更整洁
+\item
+  摇一摇功能针对五级以上用户开放，等级权益体现较强，用户更具成长动力
+\item
+  老虎机作为消耗主力功能，口袋德州为全屏设计，类比单一弹窗展现，视觉体验更强，用户停留页面意愿更强
+\item
+\end{itemize}
+
+\hypertarget{ux53d1ux5c55}{%
+\paragraph{发展}\label{ux53d1ux5c55}}
+
+\begin{itemize}
+\tightlist
+\item
+  目标：做一个为移动终端而生的德州扑克，做移动端体验最好的德州扑克
+\item
+  目标群体：互联网圈内扑克忠实爱好者
+\item
+  发布渠道：
+
+  \begin{itemize}
+  \tightlist
+  \item
+    国内：安卓（免费版）：安智/豌豆荚/易信/搜狗等，国内各大知名渠道均有涉猎；ios(付费版）
+  \item
+    海外：google/IOS（英语版）
+    海外市场占很小市场份额，未形成规模，主流语言版本：英语
+  \end{itemize}
+\item
+  根据口袋德州的渠道发布速度，口袋德州对中小渠道抢占迅速，中小渠道量小，易被竞争对手忽视，eg:易信版本，当前口袋德州已上线易信版本，抢占市场先机
+\item
+  服务/体验为王，口袋德州秉承客户至上原则，注重服务与游戏体验
+\item
+  16年12月，被天神娱乐10.67亿收购
+\item
+  推出了一个日本的德州扑克游戏
+\end{itemize}
+
+    \hypertarget{ux771fux4ebaux5fb7ux6251ux5708}{%
+\subsection{真人德扑圈}\label{ux771fux4ebaux5fb7ux6251ux5708}}
+
+\hypertarget{ux5386ux53f2}{%
+\paragraph{历史}\label{ux5386ux53f2}}
+
+\begin{itemize}
+\tightlist
+\item
+  从域名注册上来看，公司为：无锡一路米科技有限公司
+\item
+  创始人来自暴雪，中国区社区及电子竞技负责人，负责魔兽世界以及星际争霸中国区游戏运营和相关电竞赛事组织，授权。技术团队，全部成员来自腾讯研发团队，辞职创业。
+\item
+  2015-07-09 成立
+\item
+  https://www.pencilnews.cn/p/1676.html
+\item
+  据称，陌陌公司有参与投资（黄赌向来都有关联嘛）
+\item
+  目前在国内已经下载不了了
+\end{itemize}
+
+\hypertarget{ux4ea7ux54c1}{%
+\paragraph{产品}\label{ux4ea7ux54c1}}
+
+\begin{itemize}
+\tightlist
+\item
+  真人德扑圈
+\item
+  Pokermaster
+\item
+  德扑圈-SNG计时器
+\item
+  从16年7月之后上线海外版本
+\end{itemize}
+
+\hypertarget{ux4f18ux52bf}{%
+\paragraph{优势}\label{ux4f18ux52bf}}
+
+\begin{itemize}
+\tightlist
+\item
+  主打俱乐部模式（类似地方棋牌里面的房卡模式）
+\item
+  和众多线下线上俱乐部合作
+\end{itemize}
+
+\hypertarget{ux53d1ux5c55}{%
+\paragraph{发展}\label{ux53d1ux5c55}}
+
+\begin{itemize}
+\tightlist
+\item
+  这家公司很低调，找不到任何官方新闻报道，官网也只有提供合作的信息
+\item
+  不过从线下调研的数据来看，德扑圈比博雅的知名度还要大，是线下德州俱乐部里面当之无愧的老大
+\item
+  从调研数据来看，德扑圈吸引到的玩家主要是赌博，而非竞技
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
